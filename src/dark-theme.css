@@ -1,0 +1,59 @@
+body, html {
+  background: #18181b !important;
+  color: #e5e7eb;
+}
+
+.card, .meeting-peer-card, .meeting-outer, .meeting-header, .meeting-video-grid {
+  background: #23272f !important;
+  color: #e5e7eb !important;
+}
+
+.meeting-title, .text-primary {
+  color: #60a5fa !important;
+}
+
+.meeting-leave {
+  background: #ef4444 !important;
+  color: #fff !important;
+}
+
+.meeting-toggle-btn {
+  background: #2563eb !important;
+  color: #fff !important;
+}
+
+.meeting-toggle-btn.off {
+  background: #374151 !important;
+  color: #bbb !important;
+}
+
+input, .form-control {
+  background: #23272f !important;
+  color: #e5e7eb !important;
+  border: 1px solid #374151 !important;
+}
+
+input:focus, .form-control:focus {
+  background: #18181b !important;
+  color: #fff !important;
+  border-color: #2563eb !important;
+}
+
+.btn-primary {
+  background: #2563eb !important;
+  border: none !important;
+}
+
+.alert-danger {
+  background: #2d2d34 !important;
+  color: #ff6b6b !important;
+  border: none !important;
+}
+
+.meeting-peer-name {
+  color: #60a5fa !important;
+}
+
+.meeting-peer-meta {
+  color: #bbb !important;
+}
