@@ -153,8 +153,8 @@
 }
 
 .control-button {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 50%;
   width: 56px;
   height: 56px;
@@ -166,6 +166,7 @@
   backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
+  color: #fff;
 }
 
 .control-button::before {
@@ -195,20 +196,29 @@
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-color: rgba(255, 255, 255, 0.3);
   box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+  color: #fff;
+}
+
+.control-button:disabled,
+.control-button[aria-disabled="true"] {
+  background: #23232b;
+  color: #fff;
+  opacity: 0.6;
 }
 
 .control-button.danger {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: #e53e3e;
+  color: #fff;
+  border-color: #e53e3e;
 }
 
 .control-button.danger:hover {
-  background: linear-gradient(135deg, #ff5252 0%, #d32f2f 100%);
-  box-shadow: 0 8px 25px rgba(255, 82, 82, 0.4);
+  background: #c53030;
+  border-color: #c53030;
 }
 
 .control-button svg {
-  color: #fff !important;
+  color: #fff;
   fill: #fff !important;
   stroke: #fff !important;
   opacity: 1 !important;
@@ -365,10 +375,20 @@
     font-size: 1.2rem;
   }
   .video-tile {
-    width: 98vw;
-    height: 38vw;
-    min-height: 120px;
-    max-height: 40vh;
+    width: 70vw !important;
+    height: 95vw !important;
+    max-width: 80vw !important;
+    max-height: 90vh !important;
+    aspect-ratio: 3/4 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .video-tile video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 10px !important;
   }
   .video-grid-container {
     min-height: 30vh;

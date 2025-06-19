@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react'
 import { FaPlay, FaPause, FaVolumeUp, FaVolumeMute } from 'react-icons/fa'
 import { Link, useLocation } from 'react-router-dom'
-import helloVideo from '../assets/Hello.mp4'
+import helloVideo from '../assets/hello.mp4'
 import goodMorningVideo from '../assets/good morning.mp4'
 import howAreYouVideo from '../assets/how are you.mp4'
 
@@ -42,9 +42,9 @@ const signLanguageWords = [
 ]
 
 export default function Learn() {
-  const bgColor = useColorModeValue('gray.50', 'gray.900')
-  const cardBgColor = useColorModeValue('white', 'gray.800')
-  const textColor = useColorModeValue('gray.600', 'gray.300')
+  const bgColor = '#18181b';
+  const cardBgColor = '#27272a';
+  const textColor = '#fff';
   const location = useLocation();
   const [playingIndex, setPlayingIndex] = useState<number | null>(null);
   const videoRefs = React.useRef<(HTMLVideoElement | null)[]>([]);
@@ -71,156 +71,174 @@ export default function Learn() {
   };
 
   return (
-    <Box bg={bgColor} minH="100vh" py={10}>
+    <Box bg={bgColor} minH="100vh" width="100vw" overflowX="hidden">
       {/* Navbar */}
       <Flex as="nav" bg={cardBgColor} boxShadow="md" px={8} py={4} mb={8} borderRadius="xl" align="center" justify="center" gap={8}>
         <Button
           as={Link}
           to="/meetings"
-          variant={location.pathname === '/meetings' ? 'solid' : 'ghost'}
-          colorScheme={location.pathname === '/meetings' ? 'blue' : 'gray'}
+          variant="ghost"
+          color={textColor}
           fontWeight="bold"
-          size="lg"
-          borderRadius="lg"
+          fontSize="xl"
+          _hover={{ bg: '#32323a' }}
         >
           Meetings
         </Button>
         <Button
           as={Link}
           to="/learn"
-          variant={location.pathname === '/learn' ? 'solid' : 'ghost'}
-          colorScheme={location.pathname === '/learn' ? 'blue' : 'gray'}
+          variant="ghost"
+          color={textColor}
           fontWeight="bold"
-          size="lg"
-          borderRadius="lg"
+          fontSize="xl"
+          _hover={{ bg: '#32323a' }}
         >
           Learn
         </Button>
       </Flex>
-      <Container maxW="container.xl">
-        <VStack spacing={8} align="stretch">
-          <Box textAlign="center">
-            <Heading
-              size="xl"
-              bgGradient="linear(to-r, blue.400, purple.500)"
-              bgClip="text"
-              fontWeight="extrabold"
-            >
-              Learn Sign Language
-            </Heading>
-            <Text mt={2} fontSize="xl" color={textColor}>
-              Interactive lessons to help you master sign language
-            </Text>
-          </Box>
+      <Box
+        minH="100vh"
+        width="100vw"
+        position="relative"
+        zIndex="1"
+        bg={bgColor}
+      >
+        <Box maxW="container.xl" mx="auto" px={8}>
+          <Flex
+            direction={{ base: 'column', md: 'row' }}
+            align="center"
+            justify="space-between"
+            minH="100vh"
+            py={20}
+            gap={8}
+            bg={bgColor}
+          >
+            <VStack spacing={8} align="stretch">
+              <Box textAlign="center">
+                <Heading
+                  size="xl"
+                  bgGradient="linear(to-r, blue.400, purple.500)"
+                  bgClip="text"
+                  fontWeight="extrabold"
+                >
+                  Learn Sign Language
+                </Heading>
+                <Text mt={2} fontSize="xl" color={textColor}>
+                  Interactive lessons to help you master sign language
+                </Text>
+              </Box>
 
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
-            {signLanguageWords.map((word, idx) => (
-              <Card
-                key={word.word}
-                overflow="hidden"
-                bg={cardBgColor}
-                borderRadius="xl"
-                boxShadow="xl"
-                transition="transform 0.2s"
-                _hover={{ transform: 'translateY(-5px)' }}
-              >
-                <CardBody>
-                  <VStack spacing={4}>
-                    <Heading
-                      size="md"
-                      bgGradient={`linear(to-r, ${word.color}, ${word.color.replace('400', '600')})`}
-                      bgClip="text"
-                    >
-                      {word.word}
-                    </Heading>
-                    <Box
-                      width="100%"
-                      display="flex"
-                      justifyContent="center"
-                      alignItems="center"
-                    >
-                      <Box
-                        as="video"
-                        ref={el => videoRefs.current[idx] = el}
-                        src={word.video}
-                        style={{ width: '100%', aspectRatio: '1/1', objectFit: 'cover', borderRadius: '12px', background: '#18181b' }}
-                        controls
-                        playsInline
-                        onEnded={() => setPlayingIndex(null)}
-                        poster=""
-                      />
-                    </Box>
-                    <Text color={textColor}>{word.description}</Text>
-                    <HStack spacing={4}>
-                      <Button
-                        leftIcon={<Icon as={FaPlay} />}
-                        variant="outline"
-                        borderColor="blue.400"
-                        color={textColor}
-                        fontWeight="bold"
-                        boxShadow="md"
-                        borderRadius="lg"
-                        bg={cardBgColor}
-                        _hover={{
-                          bgGradient: 'linear(to-r, blue.500, purple.600)',
-                          color: 'white',
-                          borderColor: 'blue.500',
-                          transform: 'scale(1.07)',
-                          boxShadow: '0 4px 16px rgba(102, 126, 234, 0.4)',
-                        }}
-                        _active={{
-                          bgGradient: 'linear(to-r, blue.600, purple.700)',
-                          color: 'white',
-                          borderColor: 'blue.600',
-                          transform: 'scale(0.98)',
-                        }}
-                        size="sm"
-                        onClick={() => {
-                          handlePlay(idx);
-                          const video = videoRefs.current[idx];
-                          if (video) {
-                            video.muted = false;
-                            video.volume = 1.0;
-                          }
-                        }}
-                      >
-                        Play
-                      </Button>
-                      <Button
-                        leftIcon={<Icon as={FaVolumeUp} />}
-                        variant="outline"
-                        borderColor="blue.400"
-                        color={textColor}
-                        fontWeight="bold"
-                        boxShadow="md"
-                        borderRadius="lg"
-                        bg={cardBgColor}
-                        _hover={{
-                          bgGradient: 'linear(to-r, blue.500, purple.600)',
-                          color: 'white',
-                          borderColor: 'blue.500',
-                          transform: 'scale(1.07)',
-                          boxShadow: '0 4px 16px rgba(102, 126, 234, 0.4)',
-                        }}
-                        _active={{
-                          bgGradient: 'linear(to-r, blue.600, purple.700)',
-                          color: 'white',
-                          borderColor: 'blue.600',
-                          transform: 'scale(0.98)',
-                        }}
-                        size="sm"
-                        onClick={() => speakWord(word.word)}
-                      >
-                        Sound
-                      </Button>
-                    </HStack>
-                  </VStack>
-                </CardBody>
-              </Card>
-            ))}
-          </SimpleGrid>
-        </VStack>
-      </Container>
+              <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
+                {signLanguageWords.map((word, idx) => (
+                  <Card
+                    key={word.word}
+                    overflow="hidden"
+                    bg={cardBgColor}
+                    borderRadius="xl"
+                    boxShadow="xl"
+                    transition="transform 0.2s"
+                    _hover={{ transform: 'translateY(-5px)' }}
+                  >
+                    <CardBody>
+                      <VStack spacing={4}>
+                        <Heading
+                          size="md"
+                          bgGradient={`linear(to-r, ${word.color}, ${word.color.replace('400', '600')})`}
+                          bgClip="text"
+                        >
+                          {word.word}
+                        </Heading>
+                        <Box
+                          width="100%"
+                          display="flex"
+                          justifyContent="center"
+                          alignItems="center"
+                        >
+                          <Box
+                            as="video"
+                            ref={el => videoRefs.current[idx] = el}
+                            src={word.video}
+                            style={{ width: '100%', aspectRatio: '1/1', objectFit: 'cover', borderRadius: '12px', background: '#18181b' }}
+                            controls
+                            playsInline
+                            onEnded={() => setPlayingIndex(null)}
+                            poster=""
+                        />
+                        </Box>
+                        <Text color={textColor}>{word.description}</Text>
+                        <HStack spacing={4}>
+                          <Button
+                            leftIcon={<Icon as={FaPlay} />}
+                            variant="outline"
+                            borderColor="blue.400"
+                            color={textColor}
+                            fontWeight="bold"
+                            boxShadow="md"
+                            borderRadius="lg"
+                            bg={cardBgColor}
+                            _hover={{
+                              bgGradient: 'linear(to-r, blue.500, purple.600)',
+                              color: 'white',
+                              borderColor: 'blue.500',
+                              transform: 'scale(1.07)',
+                              boxShadow: '0 4px 16px rgba(102, 126, 234, 0.4)',
+                            }}
+                            _active={{
+                              bgGradient: 'linear(to-r, blue.600, purple.700)',
+                              color: 'white',
+                              borderColor: 'blue.600',
+                              transform: 'scale(0.98)',
+                            }}
+                            size="sm"
+                            onClick={() => {
+                              handlePlay(idx);
+                              const video = videoRefs.current[idx];
+                              if (video) {
+                                video.muted = false;
+                                video.volume = 1.0;
+                              }
+                            }}
+                          >
+                            Play
+                          </Button>
+                          <Button
+                            leftIcon={<Icon as={FaVolumeUp} />}
+                            variant="outline"
+                            borderColor="blue.400"
+                            color={textColor}
+                            fontWeight="bold"
+                            boxShadow="md"
+                            borderRadius="lg"
+                            bg={cardBgColor}
+                            _hover={{
+                              bgGradient: 'linear(to-r, blue.500, purple.600)',
+                              color: 'white',
+                              borderColor: 'blue.500',
+                              transform: 'scale(1.07)',
+                              boxShadow: '0 4px 16px rgba(102, 126, 234, 0.4)',
+                            }}
+                            _active={{
+                              bgGradient: 'linear(to-r, blue.600, purple.700)',
+                              color: 'white',
+                              borderColor: 'blue.600',
+                              transform: 'scale(0.98)',
+                            }}
+                            size="sm"
+                            onClick={() => speakWord(word.word)}
+                          >
+                            Sound
+                          </Button>
+                        </HStack>
+                      </VStack>
+                    </CardBody>
+                  </Card>
+                ))}
+              </SimpleGrid>
+            </VStack>
+          </Flex>
+        </Box>
+      </Box>
     </Box>
   )
 }

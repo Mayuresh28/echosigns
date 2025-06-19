@@ -75,11 +75,11 @@ function MeetingUI() {
         try {
           setIsLoading(true);
           socket.emit('join_room', { room: ROOM_CODE });
-          await hmsActions.join({
+      await hmsActions.join({
             userName: userNameFromUrl,
             authToken: AUTH_TOKEN,
-          });
-        } catch (err) {
+      });
+    } catch (err) {
           console.error('Failed to join meeting:', err);
         } finally {
           setIsLoading(false);
@@ -154,7 +154,7 @@ function MeetingUI() {
         <Flex justify="center" align="center">
           <Text className="meeting-title" textAlign="center">
             Echosigns Meeting Room
-          </Text>
+        </Text>
         </Flex>
       </Box>
 
@@ -170,23 +170,23 @@ function MeetingUI() {
                 </Box>
               ) : (
                 <>
-                  {localPeer && (
+        {localPeer && (
                     <div className="video-tile mb-3 mx-auto col-12 col-sm-10 col-md-8 col-lg-6">
-                      <PeerVideoTile peer={localPeer} isLocal={true} prediction={prediction} />
+            <PeerVideoTile peer={localPeer} isLocal={true} prediction={prediction} />
                     </div>
-                  )}
-                  {peers.filter(peer => !peer.isLocal).map(peer => (
+          )}
+          {peers.filter(peer => !peer.isLocal).map(peer => (
                     <div key={peer.id} className="video-tile mb-3 mx-auto col-12 col-sm-10 col-md-8 col-lg-6">
                       <PeerVideoTile peer={peer} isLocal={false} />
                     </div>
-                  ))}
+          ))}
                 </>
               )}
             </div>
           </div>
-          {activeSidebarTab && (
+        {activeSidebarTab && (
             <div className="col-12 col-md-4 col-lg-3 sidebar px-0 d-flex flex-column" style={{maxHeight: '70vh'}}>
-              <Tabs flex="1" display="flex" flexDirection="column" isFitted index={activeSidebarTab === 'participants' ? 0 : 1}>
+            <Tabs flex="1" display="flex" flexDirection="column" isFitted index={activeSidebarTab === 'participants' ? 0 : 1}>
                 <TabList className="sidebar-tabs">
                   <Tab className="sidebar-tab" onClick={() => toggleSidebar('participants')}>
                     <FaUserFriends style={{ marginRight: '8px' }} />
@@ -196,20 +196,20 @@ function MeetingUI() {
                     <FaComments style={{ marginRight: '8px' }} />
                     Chat
                   </Tab>
-                </TabList>
+              </TabList>
                 <TabPanels flex="1" overflowY="auto" className="sidebar-content">
-                  <TabPanel p={0}>
+                <TabPanel p={0}>
                     <VStack spacing={3} align="stretch">
                       {peers.map(peer => (
                         <Box key={peer.id} className="participant-item">
                           <Text className="participant-name">
-                            {peer.name} {peer.isLocal ? '(You)' : ''}
-                          </Text>
-                        </Box>
-                      ))}
-                    </VStack>
-                  </TabPanel>
-                  <TabPanel p={0} display="flex" flexDirection="column" height="100%">
+                          {peer.name} {peer.isLocal ? '(You)' : ''}
+                        </Text>
+                      </Box>
+                    ))}
+                  </VStack>
+                </TabPanel>
+                <TabPanel p={0} display="flex" flexDirection="column" height="100%">
                     <VStack spacing={3} align="stretch" flex="1" overflowY="auto" mb={4}>
                       {messages.length === 0 ? (
                         <Box className="empty-state">
@@ -221,30 +221,30 @@ function MeetingUI() {
                           <Box key={index} className="chat-message">
                             <Text className="chat-sender">{msg.senderName}:</Text>
                             <Text className="chat-text">{msg.message}</Text>
-                          </Box>
+                      </Box>
                         ))
                       )}
-                      <div ref={messagesEndRef} />
-                    </VStack>
+                    <div ref={messagesEndRef} />
+                  </VStack>
                     <form onSubmit={handleSendMessage} className="chat-input-container">
-                      <HStack width="100%">
-                        <Input
+                    <HStack width="100%">
+                      <Input
                           className="chat-input"
-                          placeholder="Type your message..."
-                          value={chatInput}
-                          onChange={(e) => setChatInput(e.target.value)}
-                          flex="1"
-                        />
+                        placeholder="Type your message..."
+                        value={chatInput}
+                        onChange={(e) => setChatInput(e.target.value)}
+                        flex="1"
+                      />
                         <Button type="submit" className="chat-send-button">
                           Send
                         </Button>
-                      </HStack>
-                    </form>
-                  </TabPanel>
-                </TabPanels>
-              </Tabs>
+                    </HStack>
+                  </form>
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
             </div>
-          )}
+        )}
         </div>
       </div>
 
@@ -258,6 +258,12 @@ function MeetingUI() {
             onClick={toggleAudio}
             size="lg"
             isRound
+            style={{
+              background: isAudioEnabled ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : '#23232b',
+              color: '#fff',
+              border: '1px solid #fff',
+              boxShadow: '0 0 2px 0.5px rgba(255,255,255,0.18)',
+            }}
           />
           <IconButton
             aria-label={isVideoEnabled ? 'Turn off camera' : 'Turn on camera'}
@@ -266,6 +272,12 @@ function MeetingUI() {
             onClick={toggleVideo}
             size="lg"
             isRound
+            style={{
+              background: isVideoEnabled ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : '#23232b',
+              color: '#fff',
+              border: '1px solid #fff',
+              boxShadow: '0 0 2px 0.5px rgba(255,255,255,0.18)',
+            }}
           />
           <IconButton
             aria-label="Share screen"
@@ -274,6 +286,12 @@ function MeetingUI() {
             onClick={toggleScreenShare}
             size="lg"
             isRound
+            style={{
+              background: isScreenSharing ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : '#23232b',
+              color: '#fff',
+              border: '1px solid #fff',
+              boxShadow: '0 0 2px 0.5px rgba(255,255,255,0.18)',
+            }}
           />
           <IconButton
             aria-label="Open chat"
@@ -282,6 +300,12 @@ function MeetingUI() {
             onClick={() => toggleSidebar('chat')}
             size="lg"
             isRound
+            style={{
+              background: activeSidebarTab === 'chat' ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : '#23232b',
+              color: '#fff',
+              border: '1px solid #fff',
+              boxShadow: '0 0 2px 0.5px rgba(255,255,255,0.18)',
+            }}
           />
           <IconButton
             aria-label="View participants"
@@ -290,6 +314,12 @@ function MeetingUI() {
             onClick={() => toggleSidebar('participants')}
             size="lg"
             isRound
+            style={{
+              background: activeSidebarTab === 'participants' ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : '#23232b',
+              color: '#fff',
+              border: '1px solid #fff',
+              boxShadow: '0 0 2px 0.5px rgba(255,255,255,0.18)',
+            }}
           />
           <IconButton
             aria-label="Leave meeting"
@@ -298,6 +328,12 @@ function MeetingUI() {
             onClick={handleLeave}
             size="lg"
             isRound
+            style={{
+              background: '#e53e3e',
+              color: '#fff',
+              border: '1px solid #fff',
+              boxShadow: '0 0 2px 0.5px rgba(255,255,255,0.18)',
+            }}
           />
         </HStack>
       </Box>

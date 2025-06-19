@@ -24,9 +24,9 @@ import { useNavigate, Link, useLocation } from 'react-router-dom'
 export default function Meetings() {
   const [userName, setUserName] = useState('')
   const toast = useToast()
-  const bgColor = useColorModeValue('gray.50', 'gray.900')
-  const cardBgColor = useColorModeValue('white', 'gray.800')
-  const textColor = useColorModeValue('gray.600', 'gray.300')
+  const bgColor = '#18181b'
+  const cardBgColor = '#27272a'
+  const textColor = '#fff'
   const socketRef = useRef<Socket | null>(null)
   const navigate = useNavigate()
   const location = useLocation()
@@ -76,118 +76,136 @@ export default function Meetings() {
   }
 
   return (
-    <Box bg={bgColor} minH="100vh" py={10}>
+    <Box bg={bgColor} minH="100vh" width="100vw" overflowX="hidden">
       {/* Navbar */}
       <Flex as="nav" bg={cardBgColor} boxShadow="md" px={8} py={4} mb={8} borderRadius="xl" align="center" justify="center" gap={8}>
         <Button
           as={Link}
           to="/meetings"
-          variant={location.pathname === '/meetings' ? 'solid' : 'ghost'}
-          colorScheme={location.pathname === '/meetings' ? 'blue' : 'gray'}
+          variant="ghost"
+          color={textColor}
           fontWeight="bold"
-          size="lg"
-          borderRadius="lg"
+          fontSize="xl"
+          _hover={{ bg: '#32323a' }}
         >
           Meetings
         </Button>
         <Button
           as={Link}
           to="/learn"
-          variant={location.pathname === '/learn' ? 'solid' : 'ghost'}
-          colorScheme={location.pathname === '/learn' ? 'blue' : 'gray'}
+          variant="ghost"
+          color={textColor}
           fontWeight="bold"
-          size="lg"
-          borderRadius="lg"
+          fontSize="xl"
+          _hover={{ bg: '#32323a' }}
         >
           Learn
         </Button>
       </Flex>
-      <Container maxW="container.xl">
-        <VStack spacing={8} align="stretch">
-          <Box textAlign="center">
-            <Heading
-              size="xl"
-              bgGradient="linear(to-r, blue.400, purple.500)"
-              bgClip="text"
-              fontWeight="extrabold"
-            >
-              Start a Meeting
-            </Heading>
-            <Text mt={2} fontSize="xl" color={textColor}>
-              Create or join a video meeting with sign language support
-            </Text>
-          </Box>
-          <Card bg={cardBgColor} borderRadius="xl" boxShadow="xl">
-            <CardBody>
-              <VStack spacing={6}>
-                <HStack spacing={4} w="full">
-                  <Icon as={FaVideo} w={8} h={8} color="blue.500" />
-                  <Text fontSize="lg" fontWeight="medium">
-                    Enter your name to start or join a meeting
-                  </Text>
-                </HStack>
-                <InputGroup size="lg">
-                  <Input
-                    placeholder="Enter your name"
-                    value={userName}
-                    onChange={(e) => setUserName(e.target.value)}
-                    focusBorderColor="blue.400"
-                  />
-                </InputGroup>
-
-                <Button
-                  size="lg"
-                  colorScheme="blue"
-                  width="full"
-                  onClick={handleStartMeeting}
+      <Box
+        minH="100vh"
+        width="100vw"
+        position="relative"
+        zIndex="1"
+        bg={bgColor}
+      >
+        <Box maxW="container.xl" mx="auto" px={8}>
+          <Flex
+            direction={{ base: 'column', md: 'row' }}
+            align="center"
+            justify="space-between"
+            minH="100vh"
+            py={20}
+            gap={8}
+            bg={bgColor}
+          >
+            <VStack spacing={8} align="stretch">
+              <Box textAlign="center">
+                <Heading
+                  size="xl"
                   bgGradient="linear(to-r, blue.400, purple.500)"
-                  _hover={{
-                    bgGradient: 'linear(to-r, blue.500, purple.600)',
-                  }}
-                  leftIcon={<Icon as={FaUsers} />}
+                  bgClip="text"
+                  fontWeight="extrabold"
                 >
-                  Join Meeting
-                </Button>
-              </VStack>
-            </CardBody>
-          </Card>
-          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6} mt={8}>
-            <Card bg={cardBgColor} borderRadius="xl" boxShadow="xl">
-              <CardBody>
-                <VStack spacing={4}>
-                  <Icon as={FaVideo} w={8} h={8} color="blue.500" />
-                  <Heading size="md">Video Calls</Heading>
-                  <Text color={textColor} textAlign="center">
-                    High-quality video calls with sign language support
-                  </Text>
-                </VStack>
-              </CardBody>
-            </Card>
-            <Card bg={cardBgColor} borderRadius="xl" boxShadow="xl">
-              <CardBody>
-                <VStack spacing={4}>
-                  <Icon as={FaUsers} w={8} h={8} color="green.500" />
-                  <Heading size="md">Collaboration</Heading>
-                  <Text color={textColor} textAlign="center">
-                    Work together with real-time communication
-                  </Text>
-                </VStack>
-              </CardBody>
-            </Card>
-            <Card bg={cardBgColor} borderRadius="xl" boxShadow="xl">
-              <CardBody>
-                <VStack spacing={4}>
-                  <Icon as={FaVideo} w={8} h={8} color="purple.500" />
-                  <Heading size="md">Easy Sharing</Heading>
-                  <Text color={textColor} textAlign="center">
-                    Share meeting links with just one click
-                  </Text>
-                </VStack>
-              </CardBody>
-            </Card>
-          </SimpleGrid>
-        </VStack>
-      </Container>
+                  Start a Meeting
+                </Heading>
+                <Text mt={2} fontSize="xl" color={textColor}>
+                  Create or join a video meeting with sign language support
+                </Text>
+              </Box>
+              <Card bg={cardBgColor} borderRadius="xl" boxShadow="xl">
+                <CardBody>
+                  <VStack spacing={6}>
+                    <HStack spacing={4} w="full">
+                      <Icon as={FaVideo} w={8} h={8} color="blue.500" />
+                      <Text fontSize="lg" fontWeight="medium" color={textColor}>
+                        Enter your name to start or join a meeting
+                      </Text>
+                    </HStack>
+                    <InputGroup size="lg">
+                      <Input
+                        placeholder="Enter your name"
+                        value={userName}
+                        onChange={(e) => setUserName(e.target.value)}
+                        focusBorderColor="blue.400"
+                      />
+                    </InputGroup>
+
+                    <Button
+                      size="lg"
+                      colorScheme="blue"
+                      width="full"
+                      onClick={handleStartMeeting}
+                      bgGradient="linear(to-r, blue.400, purple.500)"
+                      _hover={{
+                        bgGradient: 'linear(to-r, blue.500, purple.600)',
+                      }}
+                      leftIcon={<Icon as={FaUsers} />}
+                    >
+                      Join Meeting
+                    </Button>
+                  </VStack>
+                </CardBody>
+              </Card>
+              <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6} mt={8}>
+                <Card bg={cardBgColor} borderRadius="xl" boxShadow="xl">
+                  <CardBody>
+                    <VStack spacing={4}>
+                      <Icon as={FaVideo} w={8} h={8} color="blue.500" />
+                      <Heading size="md" color={textColor}>Video Calls</Heading>
+                      <Text color={textColor} textAlign="center">
+                        High-quality video calls with sign language support
+                      </Text>
+                    </VStack>
+                  </CardBody>
+                </Card>
+                <Card bg={cardBgColor} borderRadius="xl" boxShadow="xl">
+                  <CardBody>
+                    <VStack spacing={4}>
+                      <Icon as={FaUsers} w={8} h={8} color="green.500" />
+                      <Heading size="md" color={textColor}>Collaboration</Heading>
+                      <Text color={textColor} textAlign="center">
+                        Work together with real-time communication
+                      </Text>
+                    </VStack>
+                  </CardBody>
+                </Card>
+                <Card bg={cardBgColor} borderRadius="xl" boxShadow="xl">
+                  <CardBody>
+                    <VStack spacing={4}>
+                      <Icon as={FaVideo} w={8} h={8} color="purple.500" />
+                      <Heading size="md" color={textColor}>Easy Sharing</Heading>
+                      <Text color={textColor} textAlign="center">
+                        Share meeting links with just one click
+                      </Text>
+                    </VStack>
+                  </CardBody>
+                </Card>
+              </SimpleGrid>
+            </VStack>
+          </Flex>
+        </Box>
+      </Box>
     </Box>
   )
 }
